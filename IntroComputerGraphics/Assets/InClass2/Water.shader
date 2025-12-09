@@ -7,6 +7,8 @@ _MainTex ("Water Texture", 2D) = "white" {}
 _Freq ("Wave Frequency", Range(0, 5)) = 3.0
 _Speed ("Wave Speed", Range(0, 10)) = 1.0
 _Amp ("Wave Amplitude", Range(0, 1)) = 0.1
+_ScrollX ("Scroll X", Range(-5, 5)) = 1
+_ScrollY ("Scroll Y", Range(-5, 5)) = 1
 }
 SubShader
 {
@@ -32,6 +34,8 @@ float2 uv : TEXCOORD0; // Pass UVs to fragment
 float4 _BaseColor;
 TEXTURE2D(_MainTex);
 SAMPLER(sampler_MainTex);
+float _ScrollX;
+float _ScrollY;
 float _Freq;
 float _Speed;
 float _Amp;
@@ -48,6 +52,8 @@ displacedPos.y += wave * (_Speed / 7);
 OUT.positionHCS = TransformObjectToHClip(displacedPos);
 // Pass UV coordinates to the fragment shader
 OUT.uv = IN.uv;
+float2 scrolledUV = IN.uv + float2(_ScrollX, _ScrollY) * _Time.y;
+OUT.uv = scrolledUV; // Pass the scrolled UVs to fragment shader
 return OUT;
 }
 // Fragment Shader to apply texture and base color tint
