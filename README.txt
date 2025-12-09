@@ -34,4 +34,4 @@ Streetfighter:
 Streetfighters shader is made up of 2 materials same as the first but this one has 
 the overlay put through a sphericalize filter to add a bit of depth then ran through
 a Boolean value to see if the texture should be avalible to represent the VS text. it has
-shadows and 
+shadows enabled and casts them.
